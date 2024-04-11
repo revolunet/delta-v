@@ -25,4 +25,5 @@ export type FilterBarProps = {
   children?: React.ReactNode;
   open: boolean;
   setOpen: (open: boolean) => void;
+  onResetFilter?: () => void;
 };

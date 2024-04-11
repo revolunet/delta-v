@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React from 'react';
 
 import { useController } from 'react-hook-form';
@@ -13,9 +14,17 @@ export type FilterGroupProps = {
   name: string;
   rules?: any;
   isMobile?: boolean;
+  onChange?: (value: string[]) => void;
 };
 
-export const FilterGroup = ({ title, filters, control, name, rules }: FilterGroupProps) => {
+export const FilterGroup = ({
+  title,
+  filters,
+  control,
+  name,
+  rules,
+  onChange,
+}: FilterGroupProps) => {
   const { field } = useController({
     control,
     name,
@@ -27,8 +36,10 @@ export const FilterGroup = ({ title, filters, control, name, rules }: FilterGrou
     if (selectedValues.includes(id)) {
       selectedValues.splice(selectedValues.indexOf(id), 1);
       field.onChange(selectedValues);
+      onChange && onChange(selectedValues);
     } else {
       field.onChange([...selectedValues, id]);
+      onChange && onChange([...selectedValues, id]);
     }
   };
 
@@ -37,7 +48,7 @@ export const FilterGroup = ({ title, filters, control, name, rules }: FilterGrou
   };
 
   return (
-    <div className="sm:flex-col md:flex-row md:items-center flex gap-2.5">
+    <div className="md:flex-start sm:flex-col md:flex-col flex sm:gap-2.5 md:gap-5">
       <Typography color="black" size="text-xs">
         {title}
       </Typography>
