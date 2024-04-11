@@ -48,7 +48,7 @@ export const FilterGroup = ({
   };
 
   return (
-    <div className="md:flex-start sm:flex-col md:flex-col flex sm:gap-2.5 md:gap-5">
+    <div className="flex-start flex flex-col gap-2.5 md:gap-5">
       <Typography color="black" size="text-xs">
         {title}
       </Typography>

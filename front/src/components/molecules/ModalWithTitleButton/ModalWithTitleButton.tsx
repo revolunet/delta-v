@@ -12,15 +12,12 @@ export interface IModalWithTitleButtonProps {
   open: boolean;
   onClose?: () => void;
   title?: React.ReactNode;
-  subtitle?: React.ReactNode;
   children?: any;
   preventClose?: boolean;
   withMargin?: boolean;
   noPadding?: boolean;
   titleColor?: Color;
   titleWeight?: Weight;
-  desktopTitleSize?: TextSize;
-  desktopSubtitleSize?: TextSize;
   scrollable?: boolean;
   onResetAll?: () => void;
   isDefaultValues?: boolean;
@@ -36,7 +33,6 @@ export const ModalWithTitleButton: React.FC<IModalWithTitleButtonProps> = ({
   noPadding = false,
   titleColor = 'primary',
   titleWeight = 'bold',
-  desktopTitleSize = 'text-lg',
   scrollable = false,
   isDefaultValues,
   onResetAll,
@@ -91,13 +87,7 @@ export const ModalWithTitleButton: React.FC<IModalWithTitleButtonProps> = ({
               )}
               {title && (
                 <div className="text-center flex flex-row px-10 pt-[50px] pb-10 gap-3 items-center">
-                  <Typography
-                    size="text-[26px]"
-                    color={titleColor}
-                    weight={titleWeight}
-                    desktopSize={desktopTitleSize}
-                    lineHeight="leading-4"
-                  >
+                  <Typography size="text-[26px]" color={titleColor} weight={titleWeight}>
                     {title}
                   </Typography>
 
