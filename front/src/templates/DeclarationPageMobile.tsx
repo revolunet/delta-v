@@ -109,9 +109,9 @@ const DeclarationPageMobile = () => {
         />
       </div>
       <div className="md:items-center flex flex-col gap-2.5">
-        {declarations &&
-          declarations?.map((declaration, index) => (
-            <span className={cs({ 'opacity-40': openFilterBar })} key={declaration.id}>
+        {declarations.length > 0 &&
+          declarations.map((declaration, index) => (
+            <div className={cs({ 'opacity-40': openFilterBar })} key={declaration.id}>
               <DeclarationCard
                 {...declaration}
                 date={declaration.versionDate}
@@ -124,7 +124,7 @@ const DeclarationPageMobile = () => {
                 newLimit={apiDeclarations && apiDeclarations.length ? newLimit : undefined}
                 isLast={index === declarations.length - 1}
               />
-            </span>
+            </div>
           ))}
       </div>
       {isLoading && <div>Chargement...</div>}

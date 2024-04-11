@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 
 import { ModalFilterBarDesktop } from './ModalFilterBarDesktop';
 import { FilterBarForm } from './types';
+import { Button } from '@/components/atoms/Button';
 import { Icon } from '@/components/atoms/Icon';
 import { Typography } from '@/components/atoms/Typography';
 import { PeriodInput } from '@/components/input/StandardInputs/PeriodInput';
@@ -56,15 +57,9 @@ export const FilterBarDesktop = ({
               startDateName="startDate"
               control={control}
             />
-            <button
-              type="submit"
-              className="flex flex-row gap-5 bg-primary-600 rounded-full text-white items-center justify-center px-5 py-2.5 h-[34px]"
-            >
-              <Typography size="text-2xs" color="white">
-                Rechercher
-              </Typography>
-              <Icon name="search" size="sm" color="white" />
-            </button>
+            <Button type="submit" icon="search" size="sm">
+              Rechercher
+            </Button>
           </div>
           <div className="flex flex-row gap-5 ml-5" onClick={() => setOpenModal(true)}>
             <div className="flex flex-row gap-1.5 items-center">

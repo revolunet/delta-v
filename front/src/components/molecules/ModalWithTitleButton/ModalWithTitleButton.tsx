@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 
 import { Icon } from '../../atoms/Icon';
 import { Typography } from '../../atoms/Typography';
-import { Color, TextSize, Weight } from '../../atoms/Typography/style/typography.style';
+import { Color, Weight } from '../../atoms/Typography/style/typography.style';
 import { Button } from '@/components/atoms/Button';
 import clsxm from '@/utils/clsxm';
 

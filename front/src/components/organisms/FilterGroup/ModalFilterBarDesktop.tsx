@@ -157,11 +157,11 @@ export const ModalFilterBarDesktop = ({
           </div>
           <div className="flex flex-col gap-8 pt-5 pb-[50px]">
             {filterHistories.length > 0 && <FilterHistory histories={filterHistories} />}
-            <span className="self-center">
+            <div className="self-center">
               <Button type="submit" disabled={!isModified}>
                 Voir les résultats
               </Button>
-            </span>
+            </div>
           </div>
         </form>
       </div>
