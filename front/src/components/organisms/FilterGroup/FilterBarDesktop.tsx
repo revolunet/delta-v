@@ -11,15 +11,10 @@ import { PeriodInput } from '@/components/input/StandardInputs/PeriodInput';
 
 export type FilterBarDesktopProps = {
   onSubmit: any;
-  onResetFilter?: () => void;
   filterBarData?: FilterBarForm;
 };
 
-export const FilterBarDesktop = ({
-  onSubmit,
-  onResetFilter,
-  filterBarData,
-}: FilterBarDesktopProps) => {
+export const FilterBarDesktop = ({ onSubmit, filterBarData }: FilterBarDesktopProps) => {
   const [openModal, setOpenModal] = useState(false);
 
   const { register, control, handleSubmit, setValue } = useForm<FilterBarForm>({
@@ -38,6 +33,12 @@ export const FilterBarDesktop = ({
     setValue('endDate', filterBarData?.endDate);
     setValue('search', filterBarData?.search ?? null);
   }, [filterBarData]);
+
+  const onResetFilter = () => {
+    setValue('startDate', null);
+    setValue('endDate', null);
+    setValue('search', null);
+  };
 
   return (
     <div className="flex flex-col rounded-xl bg-gray-100 p-5 max-w-[781px] ">
