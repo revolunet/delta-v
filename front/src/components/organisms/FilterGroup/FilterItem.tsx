@@ -32,7 +32,7 @@ export const FilterItem = ({ filter, isActive, onClick }: FilterItemProps) => {
         <Icon name="plus" size="xs" />
       </div>
       <span className="flex ml-1 items-center">
-        <Typography size="text-2xs" desktopSize="text-sm" color={isActive ? 'white' : 'primary'}>
+        <Typography size="text-2xs" desktopSize="text-xs" color={isActive ? 'white' : 'primary'}>
           {filter.value}
         </Typography>
       </span>
