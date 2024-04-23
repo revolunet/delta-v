@@ -5,7 +5,6 @@ import cs from 'classnames';
 import { Icon } from '../../atoms/Icon';
 import { IconButtonWithTitle } from '../../atoms/IconButtonWithTitle';
 import { TitleAgent } from '../../atoms/TitleAgent';
-import { Typography } from '../../atoms/Typography';
 import { SvgIcon, SvgNames } from '../SvgIcon';
 import { RadioCardElement } from '@/components/input/StandardInputs/RadioCard/RadioCardElement';
 import { Product } from '@/model/product';
@@ -19,25 +18,6 @@ const getReturnButtonLabelDesktop = (productTree: Product[]) => {
     return productTree[2]?.name;
   }
   return productTree[1]?.name;
-};
-
-const getHeaderTitleDesktop = (productTree: Product[]) => {
-  const currentProduct = productTree[0];
-  const isFinalProduct = checkIsFinalProduct(currentProduct);
-  const titleProduct = isFinalProduct ? productTree[1] : currentProduct;
-
-  if (!titleProduct) {
-    return null;
-  }
-
-  return (
-    <>
-      {titleProduct.icon && <SvgIcon name={titleProduct.icon} className="h-10" />}
-      <Typography size="text-[26px]" color="black" weight="bold">
-        {titleProduct.name}
-      </Typography>
-    </>
-  );
 };
 
 const CategoryListHeaderMobile = ({
@@ -73,24 +53,15 @@ const CategoryListHeaderDesktop = ({
   }
 
   return (
-    <>
+    <div className="mb-[36px] flex items-start w-full h-6">
       {productTree.length > 0 && (
-        <>
-          <div className="mb-[36px]">
-            <div className="flex items-start w-full">
-              <IconButtonWithTitle
-                icon="chevron-left"
-                title={getReturnButtonLabelDesktop(productTree) ?? 'Catégories'}
-                onClick={onClick}
-              />
-            </div>
-          </div>
-          <div className="flex-col gap-4 items-center flex mb-10">
-            {getHeaderTitleDesktop(productTree)}
-          </div>
-        </>
+        <IconButtonWithTitle
+          icon="chevron-left"
+          title={getReturnButtonLabelDesktop(productTree) ?? 'Catégories'}
+          onClick={onClick}
+        />
       )}
-    </>
+    </div>
   );
 };
 
