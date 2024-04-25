@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from 'uuid';
 import shallow from 'zustand/shallow';
 
 import { NomenclatureCard } from '../../molecules/NomenclatureCard';
-import { FavoriteProducts } from '../FavoriteProducts';
 import { DefaultValuesUpdateProduct, OnAddProductOptions } from '../FormSelectProduct';
 import { ModalAddProductCartDeclaration } from '../ModalAddProductCartDeclaration';
 import { ModalDeleteProductCartDeclaration } from '../ModalDeleteProductCartDeclaration';
@@ -17,7 +16,6 @@ import {
   usePutSearchProductHistoryMutation,
 } from '@/api/hooks/useAPIProducts';
 import { Typography } from '@/components/atoms/Typography';
-import { CategoryProductDesktop } from '@/components/organisms/CategoryProduct/CategoryProductDesktop';
 import {
   FormAddFavoriteData,
   ModalAddFavoriteProduct,
@@ -304,14 +302,13 @@ export const ProductSearchTools = ({
           history={history}
           onClearFieldClick={onClearFieldClick}
           clearButtonVisibility={showMatchingProducts}
-        />
-
-        <FavoriteProducts
-          onFavoriteClick={
-            variant === ProductSearchContext.DECLARATION
-              ? onOpenDeclarationProductCartModal
-              : onOpenCategoryNomenclatureModal
-          }
+          showCategoryFilters={showCategoryFilters}
+          onCloseCategoryNomenclatureModal={onCloseCategoryNomenclatureModal}
+          onCloseDeclarationProductCartModal={onCloseDeclarationProductCartModal}
+          onOpenCategoryNomenclatureModal={onOpenCategoryNomenclatureModal}
+          onOpenDeclarationProductCartModal={onOpenDeclarationProductCartModal}
+          onAddProduct={onAddProduct}
+          variant={variant}
         />
       </div>
       <div className="flex-col pt-5 relative flex">
@@ -323,14 +320,6 @@ export const ProductSearchTools = ({
               preventClose={!countryForProductsNomenclature}
             />
           </div>
-        )}
-        {showCategoryFilters && (
-          <CategoryProductDesktop
-            onNomenclatureModalClose={onCloseCategoryNomenclatureModal}
-            onDeclarationModalClose={onCloseDeclarationProductCartModal}
-            onAddProductToDeclaration={onAddProduct}
-            variant={variant}
-          />
         )}
         {showMatchingProducts && (
           <div className="flex flex-col gap-[30px]">
