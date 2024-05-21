@@ -18,13 +18,13 @@ const Accessibility = () => {
           La direction interministérielle du numérique s’engage à rendre son service accessible,
           conformément à l’article 47 de la loi n° 2005-102 du 11 février 2005.
         </Typography>
-        <p>
+        <Typography color="black">
           Cette déclaration d’accessibilité s’applique à <strong>Déclare Douane</strong>
           <span>
             (<span>https://declare-douane.beta.gouv.fr</span>)
           </span>
           .
-        </p>
+        </Typography>
         <div className="py-6 flex flex-col">
           <Typography variant="h2" size="text-[32px]" weight="bold" color="black">
             État de conformité
@@ -115,15 +115,18 @@ const Accessibility = () => {
           <Typography variant="h2" size="text-[32px]" weight="bold" color="black">
             Amélioration et contact
           </Typography>
-          <p>
+          <Typography color="black">
             Si vous n’arrivez pas à accéder à un contenu ou à un service, vous pouvez contacter le
             responsable de <span>Déclare Douane</span> pour être orienté vers une alternative
             accessible ou obtenir le contenu sous une autre forme.
-          </p>
+          </Typography>
           <ul className="basic-information feedback h-card">
             <li>
               E-mail&nbsp;:{' '}
-              <a href="mailto:stephane.sabalot-jungalas@beta.gouv.fr">
+              <a
+                href="mailto:stephane.sabalot-jungalas@beta.gouv.fr"
+                className="text-primary-600 underline"
+              >
                 stephane.sabalot-jungalas@beta.gouv.fr
               </a>
             </li>
@@ -133,21 +136,29 @@ const Accessibility = () => {
           <Typography variant="h2" size="text-[32px]" weight="bold" color="black">
             Voie de recours
           </Typography>
-          <p>
+          <Typography color="black">
             Cette procédure est à utiliser dans le cas suivant&nbsp;: vous avez signalé au
             responsable du site internet un défaut d’accessibilité qui vous empêche d’accéder à un
             contenu ou à un des services du portail et vous n’avez pas obtenu de réponse
             satisfaisante.
-          </p>
-          <p>Vous pouvez&nbsp;:</p>
+          </Typography>
+          <Typography color="black">Vous pouvez&nbsp;:</Typography>
           <ul>
             <li>
               Écrire un message au{' '}
-              <a href="https://formulaire.defenseurdesdroits.fr/">Défenseur des droits</a>
+              <a
+                href="https://formulaire.defenseurdesdroits.fr/"
+                className="text-primary-600 underline"
+              >
+                Défenseur des droits
+              </a>
             </li>
             <li>
               Contacter{' '}
-              <a href="https://www.defenseurdesdroits.fr/saisir/delegues">
+              <a
+                href="https://www.defenseurdesdroits.fr/saisir/delegues"
+                className="text-primary-600 underline"
+              >
                 le délégué du Défenseur des droits dans votre région
               </a>
             </li>
@@ -160,13 +171,16 @@ const Accessibility = () => {
             </li>
           </ul>
           <hr />
-          <p>
+          <Typography color="black">
             Cette déclaration d’accessibilité a été créé le <span>20 mai 2024</span> grâce au{' '}
-            <a href="https://betagouv.github.io/a11y-generateur-declaration/#create">
+            <a
+              href="https://betagouv.github.io/a11y-generateur-declaration/#create"
+              className="text-primary-600 underline"
+            >
               Générateur de Déclaration d’Accessibilité de BetaGouv
             </a>
             .
-          </p>
+          </Typography>
         </div>
       </div>
     </Main>
