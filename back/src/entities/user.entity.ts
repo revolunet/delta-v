@@ -1,10 +1,12 @@
 import { Column, Entity, Index, JoinColumn, OneToMany, PrimaryColumn, Unique } from 'typeorm';
+import { Alpha2Code } from 'i18n-iso-countries';
 import { FavoriteEntity, FavoriteEntityInterface } from './favorite.entity';
 
 export interface User {
   id: string;
   email: string;
   password: string;
+  defaultCountry?: Alpha2Code;
   enabled?: boolean;
   blocked?: boolean;
 }
@@ -25,6 +27,9 @@ export default class UserEntity implements UserEntityInterface {
 
   @Column()
   password: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  defaultCountry?: Alpha2Code;
 
   @Column({ default: false })
   enabled?: boolean;
