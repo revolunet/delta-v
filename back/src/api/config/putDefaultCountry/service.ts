@@ -1,24 +1,27 @@
 import { Alpha2Code } from 'i18n-iso-countries';
 import { UserRepositoryInterface } from '../../../repositories/user.repository';
 import userNotFoundError from '../../common/errors/userNotFound.error';
+import { ConfigRepositoryInterface } from '../../../repositories/config.repository';
 
 interface PutDefaultCountryOptions {
   userId: string;
   country: string;
   userRepository: UserRepositoryInterface;
+  configRepository: ConfigRepositoryInterface;
 }
 
 export const service = async ({
   userId,
   country,
   userRepository,
+  configRepository,
 }: PutDefaultCountryOptions): Promise<void> => {
   const user = await userRepository.getOneById(userId);
   if (!user) {
     throw userNotFoundError();
   }
 
-  const updateUser = { defaultCountry: country as Alpha2Code };
+  const updateConfig = { userId, defaultCountry: country as Alpha2Code };
 
-  await userRepository.updateUser(userId, updateUser);
+  await configRepository.putOne(updateConfig);
 };

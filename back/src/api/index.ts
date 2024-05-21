@@ -7,7 +7,7 @@ import authentication from './authentication';
 import { feedbackRouter } from './feedback';
 import { actualityRouter } from './actuality';
 import { favoriteRouter } from './favorite';
-import { userRouter } from './user';
+import { configRouter } from './config';
 
 export interface IApiOptions {
   redisConnection: Redis;
@@ -21,4 +21,4 @@ export default Router()
   .use(favoriteRouter)
   .use(declaration)
   .use(authentication)
-  .use(userRouter);
+  .use(configRouter);

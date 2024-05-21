@@ -3,6 +3,7 @@ import { HttpStatuses } from '../../../core/httpStatuses';
 import { ValidatedRequest } from '../../../core/utils/validatedExpressRequest';
 import { AppDataSource } from '../../../loader/database';
 import { UserRepository } from '../../../repositories/user.repository';
+import { ConfigRepository } from '../../../repositories/config.repository';
 import { serializePutDefaultCountry } from './serializer';
 import { service } from './service';
 
@@ -24,6 +25,7 @@ export default async (
       userId,
       country,
       userRepository: AppDataSource.manager.withRepository(UserRepository),
+      configRepository: AppDataSource.manager.withRepository(ConfigRepository),
     });
 
     const response = serializePutDefaultCountry();

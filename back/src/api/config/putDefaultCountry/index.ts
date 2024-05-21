@@ -5,7 +5,7 @@ import route from './route';
 import validator from './validator';
 
 export const putDefaultCountry = Router().put(
-  '/defaultCountry',
+  '/config/defaultCountry',
   jwtMiddleware({ isAgent: true }),
   validator,
   validatedExpressRequest(route),
