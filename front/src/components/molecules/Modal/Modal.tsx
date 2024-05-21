@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useRef } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
 
@@ -21,6 +21,7 @@ export interface IModalProps {
   desktopTitleSize?: TextSize;
   desktopSubtitleSize?: TextSize;
   scrollable?: boolean;
+  noInitialFocus?: boolean;
 }
 
 export const Modal: React.FC<IModalProps> = ({
@@ -37,7 +38,9 @@ export const Modal: React.FC<IModalProps> = ({
   desktopTitleSize = 'text-lg',
   desktopSubtitleSize,
   scrollable = false,
+  noInitialFocus = false,
 }: IModalProps) => {
+  const dialogRef = useRef(null);
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -47,6 +50,7 @@ export const Modal: React.FC<IModalProps> = ({
           'overflow-scroll': scrollable,
         })}
         onClose={preventClose ? () => {} : onClose}
+        initialFocus={noInitialFocus ? dialogRef : undefined}
       >
         <div className="flex min-h-screen items-center justify-center px-small pt-small pb-20 text-center">
           <Transition.Child
@@ -62,7 +66,11 @@ export const Modal: React.FC<IModalProps> = ({
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
-          <span className="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true">
+          <span
+            className="hidden sm:inline-block sm:h-screen sm:align-middle"
+            aria-hidden="true"
+            ref={dialogRef}
+          >
             &#8203;
           </span>
           <Transition.Child
@@ -76,7 +84,7 @@ export const Modal: React.FC<IModalProps> = ({
           >
             <div
               className={clsxm({
-                'overflow-hidden relative z-50 my-largeBase inline-block w-full p-modalMobile md:p-modalDesktop rounded-lg md:rounded-[20px] bg-white text-left align-bottom shadow-xl transition-all sm:max-w-lg sm:align-middle':
+                'overflow-hidden relative z-50 my-largeBase inline-block w-full p-modalMobile md:p-modalDesktop rounded-lg md:rounded-[20px] bg-white text-left align-bottom shadow-xl transition-all sm:max-w-[544px] sm:align-middle':
                   true,
                 'p-0 md:p-0': noPadding,
               })}

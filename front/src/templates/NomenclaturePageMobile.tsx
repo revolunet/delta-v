@@ -8,13 +8,17 @@ import { usePutSearchProductHistoryMutation } from '@/api/hooks/useAPIProducts';
 import { FavoriteResponse } from '@/api/lib/types';
 import { Icon } from '@/components/atoms/Icon';
 import { Typography } from '@/components/atoms/Typography';
+import { memoizedCountriesData } from '@/components/organisms/FormSelectCountry/utils';
 import { ModalCategoryNomenclatureProduct } from '@/components/organisms/ModalCategoryNomenclatureProduct';
 import { ModalFavorites } from '@/components/organisms/ModalFavorites';
 import { ModalSearchNomenclatureProduct } from '@/components/organisms/ModalSearchNomenclatureProduct';
 import { ModalSelectCountry } from '@/components/organisms/ModalSelectCountry';
+import { SelectCountryButton } from '@/components/organisms/SelectCountryButton';
 import { IdRequiredProduct, Product } from '@/model/product';
 import { useStore } from '@/stores/store';
 import clsxm from '@/utils/clsxm';
+import { countriesAlternatives, disabledCountries } from '@/utils/const';
+import { ModalType } from '@/utils/modal';
 import { findProduct, haveAgeRestriction } from '@/utils/product.util';
 
 export interface FormDeclarationData {
@@ -23,12 +27,6 @@ export interface FormDeclarationData {
 
 export const NomenclaturePageMobile = () => {
   const router = useRouter();
-  const [openSearchDownModal, setOpenSearchDownModal] = useState(false);
-  const [openCategoryDownModal, setOpenCategoryDownModal] = useState(false);
-  const [openFavoriteDownModal, setOpenFavoriteDownModal] = useState(false);
-  const [selectedFavoriteProduct, setSelectedFavoriteProduct] = useState<Product | undefined>(
-    undefined,
-  );
   const {
     nomenclatureProducts,
     setFavoriteProducts,
@@ -43,11 +41,32 @@ export const NomenclaturePageMobile = () => {
     countryForProductsNomenclature: state.products.appState.countryForProductsNomenclature,
   }));
 
+  const countriesData = memoizedCountriesData({ countriesAlternatives, disabledCountries });
+
+  const [currentCountryLabel, setCurrentCountryLabel] = useState(
+    countryForProductsNomenclature
+      ? countriesData.find((country) => country.value === countryForProductsNomenclature)?.label
+      : undefined,
+  );
+  const [openSelectCountryModal, setOpenSelectCountryModal] = useState(
+    !countryForProductsNomenclature,
+  );
+
+  const [openSearchDownModal, setOpenSearchDownModal] = useState(false);
+  const [openCategoryDownModal, setOpenCategoryDownModal] = useState(false);
+  const [openFavoriteDownModal, setOpenFavoriteDownModal] = useState(false);
+  const [selectedFavoriteProduct, setSelectedFavoriteProduct] = useState<Product | undefined>(
+    undefined,
+  );
+
   useEffect(() => {
     if (!countryForProductsNomenclature) {
       return;
     }
     setProductsNomenclatureToDisplayAgent(countryForProductsNomenclature);
+    setCurrentCountryLabel(
+      countriesData.find((country) => country.value === countryForProductsNomenclature)?.label,
+    );
   }, [countryForProductsNomenclature]);
 
   const updateSearchProductHistory = usePutSearchProductHistoryMutation({});
@@ -99,6 +118,10 @@ export const NomenclaturePageMobile = () => {
       pathname: '/agent/nomenclature/recherche',
       query: { search: searchValue },
     });
+  };
+
+  const onCloseSelectCountryModal = () => {
+    setOpenSelectCountryModal(false);
   };
 
   const flattenFavoriteProducts: Product[] = [];
@@ -169,7 +192,10 @@ export const NomenclaturePageMobile = () => {
         </button>
       </div>
       <div className="flex flex-row justify-end w-full mt-[30px] border-t pt-5">
-        <ModalSelectCountry isOpen={true} preventClose={!countryForProductsNomenclature} />
+        <SelectCountryButton
+          onClick={() => setOpenSelectCountryModal(true)}
+          label={currentCountryLabel}
+        />
       </div>
 
       <ModalSearchNomenclatureProduct
@@ -189,6 +215,12 @@ export const NomenclaturePageMobile = () => {
         onClose={() => setOpenFavoriteDownModal(false)}
         onClickFavorite={onClickFavorite}
         isInNomenclature
+      />
+      <ModalSelectCountry
+        isOpen={openSelectCountryModal}
+        onClose={onCloseSelectCountryModal}
+        modalType={ModalType.DOWN}
+        preventClose={!countryForProductsNomenclature}
       />
     </>
   );

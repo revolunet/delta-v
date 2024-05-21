@@ -5,9 +5,12 @@ import { v4 as uuidv4 } from 'uuid';
 import shallow from 'zustand/shallow';
 
 import { NomenclatureCard } from '../../molecules/NomenclatureCard';
+import { memoizedCountriesData } from '../FormSelectCountry/utils';
 import { DefaultValuesUpdateProduct, OnAddProductOptions } from '../FormSelectProduct';
 import { ModalAddProductCartDeclaration } from '../ModalAddProductCartDeclaration';
 import { ModalDeleteProductCartDeclaration } from '../ModalDeleteProductCartDeclaration';
+import { ModalSelectCountry } from '../ModalSelectCountry';
+import { SelectCountryButton } from '../SelectCountryButton';
 import { SearchProductFilterBar } from './filters/SearchProductFilters';
 import { ShoppingProductsCart } from './product/ShoppingProductsCart';
 import { useCreateFavoriteMutation, useRemoveFavoriteMutation } from '@/api/hooks/useAPIFavorite';
@@ -22,10 +25,10 @@ import {
 } from '@/components/organisms/ModalAddFavoriteProduct/ModalAddFavoriteProduct';
 import { ModalCategoryNomenclatureProduct } from '@/components/organisms/ModalCategoryNomenclatureProduct';
 import { ModalDeleteFavoriteProduct } from '@/components/organisms/ModalDeleteFavoriteProduct/ModalDeleteFavoriteProduct';
-import { ModalSelectCountry } from '@/components/organisms/ModalSelectCountry';
 import { IdRequiredProduct, Product } from '@/model/product';
 import { ShoppingProduct } from '@/stores/simulator/appState.store';
 import { useStore } from '@/stores/store';
+import { countriesAlternatives, disabledCountries } from '@/utils/const';
 import { ProductSearchContext } from '@/utils/enums';
 import { ModalType } from '@/utils/modal';
 import { getSearchProductResults } from '@/utils/search';
@@ -76,6 +79,8 @@ export const ProductSearchTools = ({
     onSuccess: updateHistory,
   });
 
+  const countriesData = memoizedCountriesData({ countriesAlternatives, disabledCountries });
+
   const searchFunction =
     variant === ProductSearchContext.NOMENCLATURE ? searchNomenclatureProducts : searchProducts;
 
@@ -91,6 +96,15 @@ export const ProductSearchTools = ({
   const [currentFavorite, setCurrentFavorite] = useState<Product | undefined>(undefined);
 
   const [productsMatchingInputSearch, setProductsMatchingInputSearch] = useState<Product[]>([]);
+
+  const [currentCountryLabel, setCurrentCountryLabel] = useState(
+    countryForProductsNomenclature
+      ? countriesData.find((country) => country.value === countryForProductsNomenclature)?.label
+      : undefined,
+  );
+  const [openSelectCountryModal, setOpenSelectCountryModal] = useState(
+    !countryForProductsNomenclature,
+  );
 
   const [openCategoryNomenclatureModal, setOpenCategoryNomenclatureModal] = useState(false);
   const [openDeclarationProductCartModal, setOpenDeclarationProductCartModal] = useState<
@@ -121,6 +135,9 @@ export const ProductSearchTools = ({
 
   useEffect(() => {
     setShowCategoryFilters(false);
+    setCurrentCountryLabel(
+      countriesData.find((country) => country.value === countryForProductsNomenclature)?.label,
+    );
   }, [countryForProductsNomenclature]);
 
   const onClickInputResult = (product: IdRequiredProduct, search: string) => {
@@ -289,6 +306,10 @@ export const ProductSearchTools = ({
     setOpenDeclarationProductCartModal('update');
   };
 
+  const onCloseSelectCountryModal = () => {
+    setOpenSelectCountryModal(false);
+  };
+
   return (
     <div>
       <div className=" first:p-5 bg-secondary-bg rounded-[20px] flex flex-col items-center gap-4">
@@ -314,10 +335,9 @@ export const ProductSearchTools = ({
       <div className="flex-col pt-5 relative flex">
         {variant === ProductSearchContext.NOMENCLATURE && (
           <div className="absolute right-0 top-[30px]">
-            <ModalSelectCountry
-              modalType={modalType}
-              isOpen={true}
-              preventClose={!countryForProductsNomenclature}
+            <SelectCountryButton
+              onClick={() => setOpenSelectCountryModal(true)}
+              label={currentCountryLabel}
             />
           </div>
         )}
@@ -403,6 +423,12 @@ export const ProductSearchTools = ({
           onDeleteProduct={onConfirmRemoveCartProduct}
         />
       )}
+      <ModalSelectCountry
+        isOpen={openSelectCountryModal}
+        onClose={onCloseSelectCountryModal}
+        modalType={ModalType.CENTER}
+        preventClose={!countryForProductsNomenclature}
+      />
     </div>
   );
 };
