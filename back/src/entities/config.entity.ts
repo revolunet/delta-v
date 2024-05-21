@@ -4,7 +4,7 @@ import UserEntity, { UserEntityInterface } from './user.entity';
 
 export interface Config {
   userId: string;
-  defaultCountry?: Alpha2Code;
+  defaultCountry: Alpha2Code | null;
 }
 
 export interface ConfigEntityInterface extends Config {
@@ -17,7 +17,7 @@ export class ConfigEntity implements ConfigEntityInterface {
   userId: string;
 
   @Column({ type: 'varchar', nullable: true })
-  defaultCountry?: Alpha2Code;
+  defaultCountry: Alpha2Code | null;
 
   @OneToOne(() => UserEntity)
   @JoinColumn()
