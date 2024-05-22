@@ -1,7 +1,7 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
+import { getDefaultCountryRequest, putDefaultCountryRequest } from '../lib/config';
 import { ErrorResponse, PutDefaultCountryParams } from '../lib/types';
-import { putDefaultCountryRequest } from '../lib/user';
 
 export const usePutDefaultCountryMutation = ({ onSuccess }: { onSuccess?: () => void }) => {
   return useMutation<void, ErrorResponse, PutDefaultCountryParams>(putDefaultCountryRequest, {
@@ -12,3 +12,5 @@ export const usePutDefaultCountryMutation = ({ onSuccess }: { onSuccess?: () => 
     },
   });
 };
+
+export const useGetDefaultCountry = () => useQuery('defaultCountry', getDefaultCountryRequest);
