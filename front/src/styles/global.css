@@ -224,7 +224,6 @@ svg {
     @apply border-red-500 focus:border-red-500 focus:ring-red-200;
   }
 
-  input:read-only,
   input:disabled,
   select:disabled,
   textarea:read-only,

@@ -11,9 +11,10 @@ import { countriesAlternatives, disabledCountries } from '@/utils/const';
 
 interface FormSelectCountryProps {
   onSelectCountry: (country: Alpha2Code) => void;
+  defaultCountry?: Alpha2Code;
 }
 
-export const FormSelectCountry = ({ onSelectCountry }: FormSelectCountryProps) => {
+export const FormSelectCountry = ({ onSelectCountry, defaultCountry }: FormSelectCountryProps) => {
   const countriesData = memoizedCountriesData({ countriesAlternatives, disabledCountries });
   const onSubmit = (country: Suggestion) => {
     onSelectCountry(country.value as Alpha2Code);
@@ -32,7 +33,7 @@ export const FormSelectCountry = ({ onSelectCountry }: FormSelectCountryProps) =
           required
           placeholder="Saisissez le pays recherché"
           className="min-w-[250px]"
-          defaultItemId="DZ"
+          defaultItemId={defaultCountry}
           favoriteItemIds={['DZ', 'ES', 'VN']}
           onItemClick={onSubmit}
           defaultItemHelperText="Par défaut"

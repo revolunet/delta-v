@@ -4,15 +4,25 @@ import { Typography } from '@/components/atoms/Typography';
 export interface SelectCountryButtonProps {
   onClick: () => void;
   label?: string;
+  isDefaultCountry?: boolean;
 }
 
-export const SelectCountryButton: React.FC<SelectCountryButtonProps> = ({ onClick, label }) => {
+export const SelectCountryButton: React.FC<SelectCountryButtonProps> = ({
+  onClick,
+  label,
+  isDefaultCountry,
+}) => {
   return (
     <div className="flex flex-row gap-[10px] items-center cursor-pointer" onClick={onClick}>
       <Typography color="black" size="text-2xs" weight="bold" desktopSize="text-sm">
         {label ?? 'Sélectionner le pays de provenance'}
       </Typography>
-      <Icon name="chevron-down" size="lg" />
+      {label && isDefaultCountry && (
+        <Typography color="placeholder" size="text-2xs" desktopSize="text-sm" italic>
+          Par défaut
+        </Typography>
+      )}
+      <Icon name="chevron-down" size="base" />
     </div>
   );
 };

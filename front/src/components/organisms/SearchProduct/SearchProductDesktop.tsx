@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useMatomo } from '@datapunt/matomo-tracker-react';
+import { Alpha2Code } from 'i18n-iso-countries';
 import { v4 as uuidv4 } from 'uuid';
 import shallow from 'zustand/shallow';
 
@@ -10,9 +11,11 @@ import { DefaultValuesUpdateProduct, OnAddProductOptions } from '../FormSelectPr
 import { ModalAddProductCartDeclaration } from '../ModalAddProductCartDeclaration';
 import { ModalDeleteProductCartDeclaration } from '../ModalDeleteProductCartDeclaration';
 import { ModalSelectCountry } from '../ModalSelectCountry';
+import { ModalSetDefaultCountry } from '../ModalSetDefaultCountry';
 import { SelectCountryButton } from '../SelectCountryButton';
 import { SearchProductFilterBar } from './filters/SearchProductFilters';
 import { ShoppingProductsCart } from './product/ShoppingProductsCart';
+import { useGetDefaultCountry } from '@/api/hooks/useAPIConfig';
 import { useCreateFavoriteMutation, useRemoveFavoriteMutation } from '@/api/hooks/useAPIFavorite';
 import {
   useGetSearchProductHistory,
@@ -72,6 +75,7 @@ export const ProductSearchTools = ({
     shallow,
   );
 
+  const { data: defaultCountry, refetch: updateDefaultCountry } = useGetDefaultCountry();
   const { data: history, refetch: updateHistory } = useGetSearchProductHistory();
   const createFavoriteMutation = useCreateFavoriteMutation({});
   const removeFavoriteMutation = useRemoveFavoriteMutation({});
@@ -105,6 +109,8 @@ export const ProductSearchTools = ({
   const [openSelectCountryModal, setOpenSelectCountryModal] = useState(
     !countryForProductsNomenclature,
   );
+  const [selectedCountry, setSelectedCountry] = useState<Alpha2Code | undefined>(undefined);
+  const [openSetDefaultCountryModal, setOpenSetDefaultCountryModal] = useState(true);
 
   const [openCategoryNomenclatureModal, setOpenCategoryNomenclatureModal] = useState(false);
   const [openDeclarationProductCartModal, setOpenDeclarationProductCartModal] = useState<
@@ -310,6 +316,17 @@ export const ProductSearchTools = ({
     setOpenSelectCountryModal(false);
   };
 
+  const onSelectCountry = (country: Alpha2Code) => {
+    setOpenSetDefaultCountryModal(true);
+    setSelectedCountry(country);
+  };
+
+  const onCloseSetDefaultCountryModal = () => {
+    setOpenSetDefaultCountryModal(false);
+  };
+
+  const shouldShowSetDefaultCountryModal = selectedCountry && selectedCountry !== defaultCountry;
+
   return (
     <div>
       <div className=" first:p-5 bg-secondary-bg rounded-[20px] flex flex-col items-center gap-4">
@@ -338,6 +355,7 @@ export const ProductSearchTools = ({
             <SelectCountryButton
               onClick={() => setOpenSelectCountryModal(true)}
               label={currentCountryLabel}
+              isDefaultCountry={defaultCountry === countryForProductsNomenclature}
             />
           </div>
         )}
@@ -426,9 +444,21 @@ export const ProductSearchTools = ({
       <ModalSelectCountry
         isOpen={openSelectCountryModal}
         onClose={onCloseSelectCountryModal}
+        onSelect={(country) => onSelectCountry(country)}
         modalType={ModalType.CENTER}
         preventClose={!countryForProductsNomenclature}
+        defaultCountry={defaultCountry}
       />
+      {shouldShowSetDefaultCountryModal && (
+        <ModalSetDefaultCountry
+          country={selectedCountry}
+          isOpen={openSetDefaultCountryModal}
+          onClose={onCloseSetDefaultCountryModal}
+          modalType={ModalType.CENTER}
+          preventClose={!countryForProductsNomenclature}
+          onSet={updateDefaultCountry}
+        />
+      )}
     </div>
   );
 };

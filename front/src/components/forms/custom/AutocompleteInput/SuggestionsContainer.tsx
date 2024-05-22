@@ -95,11 +95,17 @@ export const SuggestionsContainer: React.FC<Props> = ({
               {favoritesTitle}
             </Typography>
           </div>
-          {formattedOptions.favorites.map((favorite) => favorite.label)}
+          {formattedOptions.favorites.map((favorite) => (
+            <div key={favorite.value}>{favorite.label}</div>
+          ))}
         </div>
       )}
       {searchValue !== '' && items.length > 0 && (
-        <div className="flex-col flex">{formattedOptions.all.map((item) => item.label)}</div>
+        <div className="flex-col flex">
+          {formattedOptions.all.map((item) => (
+            <div key={item.value}>{item.label}</div>
+          ))}
+        </div>
       )}
     </div>
   );

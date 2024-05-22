@@ -15,7 +15,7 @@ export const putDefaultCountryRequest = async (params: PutDefaultCountryParams):
   await axios.put(`/config/defaultCountry`, bodyParams);
 };
 
-export const getDefaultCountryRequest = async (): Promise<Config> => {
+export const getDefaultCountryRequest = async (): Promise<Alpha2Code> => {
   const response = await axios.get('/config/defaultCountry');
   return response.data.defaultCountry;
 };

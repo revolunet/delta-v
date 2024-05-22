@@ -12,15 +12,19 @@ import { ModalType, getModalComponent } from '@/utils/modal';
 interface ModalSelectCountryProps {
   isOpen?: boolean;
   onClose?: () => void;
+  onSelect?: (country: Alpha2Code) => void;
   preventClose?: boolean;
   modalType?: ModalType;
+  defaultCountry?: Alpha2Code;
 }
 
 export const ModalSelectCountry: React.FC<ModalSelectCountryProps> = ({
   isOpen = false,
   onClose,
+  onSelect,
   preventClose = false,
   modalType = ModalType.DOWN,
+  defaultCountry,
 }) => {
   const {
     setProductsNomenclatureToDisplay,
@@ -51,6 +55,9 @@ export const ModalSelectCountry: React.FC<ModalSelectCountryProps> = ({
   const ModalComponent = getModalComponent(modalType);
 
   const onSelectCountry = (country: Alpha2Code) => {
+    if (onSelect) {
+      onSelect(country);
+    }
     setCountryForProductsNomenclature(country);
     handleClose();
   };
@@ -73,7 +80,7 @@ export const ModalSelectCountry: React.FC<ModalSelectCountryProps> = ({
         >
           Sélectionner le pays de provenance :
         </Typography>
-        <FormSelectCountry onSelectCountry={onSelectCountry} />
+        <FormSelectCountry onSelectCountry={onSelectCountry} defaultCountry={defaultCountry} />
       </motion.div>
     </ModalComponent>
   );
