@@ -60,16 +60,17 @@ export const ModalSetDefaultCountry: React.FC<ModalSetDefaultCountryProps> = ({
       preventClose={preventClose}
       noInitialFocus
     >
-      <motion.div className="mx-auto w-full gap-5 flex flex-col h-auto">
-        <div className="flex flex-col gap-2">
+      <motion.div className="mx-auto w-full md:gap-5 gap-7 flex flex-col h-auto md:p-0 p-5">
+        <div className="flex flex-col md:gap-2 gap-4">
           <Typography
             color="black"
-            size="text-xs"
+            size="text-sm"
             desktopSize="text-xs"
             weight="bold"
             textPosition="text-center"
           >
-            {`Voulez vous définir ${countryLabel} par défaut ?`}
+            {`Voulez vous définir ${countryLabel}`}
+            <br className="md:hidden block" /> par défaut ?
           </Typography>
           <Typography
             color="black"
@@ -93,15 +94,19 @@ export const ModalSetDefaultCountry: React.FC<ModalSetDefaultCountryProps> = ({
             Ne plus afficher la pop in
           </Typography>
         </div>
-        <div className="flex gap-[10px] self-center">
+        <div className="flex gap-[10px] self-center md:flex-row flex-col-reverse md:w-auto w-52">
           <Button
             variant="outlined"
             className={{ 'md:h-[34px] md:text-xs md:whitespace-nowrap md:px-7': true }}
             onClick={handleClose}
+            size="sm"
+            fullWidth
           >
             Continuer sans définir
           </Button>
           <Button
+            fullWidth
+            size="sm"
             className={{ 'md:h-[34px] md:text-xs md:whitespace-nowrap md:px-7': true }}
             onClick={onSetDefaultCountry}
           >

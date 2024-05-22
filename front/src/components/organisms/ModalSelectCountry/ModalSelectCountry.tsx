@@ -70,7 +70,7 @@ export const ModalSelectCountry: React.FC<ModalSelectCountryProps> = ({
       preventClose={preventClose}
       noInitialFocus
     >
-      <motion.div className="mx-auto w-[268px] gap-5 flex flex-col h-auto">
+      <motion.div className="mx-auto md:w-[268px] gap-5 flex flex-col md:h-auto md:p-0 px-4 pt-7 pb-2 h-[calc(90vh-30px)]">
         <Typography
           color="black"
           size="text-xs"
