@@ -55,6 +55,7 @@ export const ProductSearchTools = ({
     removeProductDeclaration,
     updateProductCartDeclarationAgent,
     findDeclarationShoppingProductAgent,
+    displaySetDefaultCountry,
   } = useStore(
     (state) => ({
       searchNomenclatureProducts: state.searchNomenclatureProducts,
@@ -71,6 +72,7 @@ export const ProductSearchTools = ({
       meansOfTransportAndCountry:
         state.declaration.appState.declarationAgentRequest.meansOfTransportAndCountry,
       findDeclarationShoppingProductAgent: state.findDeclarationShoppingProductAgent,
+      displaySetDefaultCountry: state.global.appState.displaySetDefaultCountry,
     }),
     shallow,
   );
@@ -325,7 +327,8 @@ export const ProductSearchTools = ({
     setOpenSetDefaultCountryModal(false);
   };
 
-  const shouldShowSetDefaultCountryModal = selectedCountry && selectedCountry !== defaultCountry;
+  const shouldShowSetDefaultCountryModal =
+    displaySetDefaultCountry && selectedCountry && selectedCountry !== defaultCountry;
 
   return (
     <div>

@@ -7,6 +7,7 @@ import { usePutDefaultCountryMutation } from '@/api/hooks/useAPIConfig';
 import { Button } from '@/components/atoms/Button';
 import { Checkbox } from '@/components/atoms/Checkbox';
 import { Typography } from '@/components/atoms/Typography';
+import { useStore } from '@/stores/store';
 import { ModalType, getModalComponent } from '@/utils/modal';
 
 interface ModalSetDefaultCountryProps {
@@ -26,7 +27,11 @@ export const ModalSetDefaultCountry: React.FC<ModalSetDefaultCountryProps> = ({
   preventClose = false,
   modalType = ModalType.DOWN,
 }) => {
-  const [doNotShowAgain, setDoNotShowAgain] = useState(false);
+  const [doNotSowAgain, setDoNotShowAgain] = useState(false);
+  const { hideSetDefaultCountry, showSetDefaultCountry } = useStore((state) => ({
+    hideSetDefaultCountry: state.hideSetDefaultCountry,
+    showSetDefaultCountry: state.showSetDefaultCountry,
+  }));
   const usePutDefaultCountry = usePutDefaultCountryMutation({});
 
   const countries = getNames('fr', { select: 'official' });
@@ -36,6 +41,9 @@ export const ModalSetDefaultCountry: React.FC<ModalSetDefaultCountryProps> = ({
     if (onClose) {
       onClose();
     }
+    if (doNotSowAgain) {
+      hideSetDefaultCountry();
+    } else showSetDefaultCountry();
   };
 
   const ModalComponent = getModalComponent(modalType);
