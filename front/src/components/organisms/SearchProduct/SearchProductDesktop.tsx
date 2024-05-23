@@ -357,7 +357,7 @@ export const ProductSearchTools = ({
           <div className="absolute right-0 top-[30px]">
             <SelectCountryButton
               onClick={() => setOpenSelectCountryModal(true)}
-              label={currentCountryLabel}
+              countryLabel={currentCountryLabel}
               isDefaultCountry={defaultCountry === countryForProductsNomenclature}
             />
           </div>

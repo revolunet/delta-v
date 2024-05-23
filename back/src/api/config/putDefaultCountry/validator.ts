@@ -4,7 +4,7 @@ import { Alpha2CodeEnum } from '../../../utils/country.util';
 
 export const putDefaultCountryValidator = z.object({
   body: z.object({
-    country: z.nativeEnum(Alpha2CodeEnum, { required_error: 'Le code du pays est requis' }),
+    country: z.nativeEnum(Alpha2CodeEnum).nullable(),
   }),
 });
 

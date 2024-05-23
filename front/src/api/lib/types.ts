@@ -87,5 +87,5 @@ export type GetOneDeclarationParams = {
 };
 
 export type PutDefaultCountryParams = {
-  country: Alpha2Code;
+  country: Alpha2Code | null;
 };

@@ -5,7 +5,7 @@ import { ConfigRepositoryInterface } from '../../../repositories/config.reposito
 
 interface PutDefaultCountryOptions {
   userId: string;
-  country: string;
+  country: string | null;
   userRepository: UserRepositoryInterface;
   configRepository: ConfigRepositoryInterface;
 }
@@ -21,7 +21,7 @@ export const service = async ({
     throw userNotFoundError();
   }
 
-  const updateConfig = { userId, defaultCountry: country as Alpha2Code };
+  const updateConfig = { userId, defaultCountry: country as Alpha2Code | null };
 
   await configRepository.putOne(updateConfig);
 };

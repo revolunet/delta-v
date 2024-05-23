@@ -211,7 +211,7 @@ export const NomenclaturePageMobile = () => {
       <div className="flex flex-row justify-end w-full mt-[30px] border-t pt-5">
         <SelectCountryButton
           onClick={() => setOpenSelectCountryModal(true)}
-          label={currentCountryLabel}
+          countryLabel={currentCountryLabel}
           isDefaultCountry={defaultCountry === countryForProductsNomenclature}
         />
       </div>
