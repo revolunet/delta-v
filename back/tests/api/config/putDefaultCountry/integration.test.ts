@@ -1,4 +1,4 @@
-import { Express } from 'express';
+import type { Express } from 'express';
 import request from 'supertest';
 
 import { faker } from '@faker-js/faker';
@@ -40,7 +40,7 @@ describe('putDefaultCountry route', () => {
     const newDefaultCountry = faker.helpers.enumValue(Alpha2CodeEnum);
 
     const { status, body } = await request(testApp)
-      .put(`/api/config/defaultCountry/`)
+      .put('/api/config/defaultCountry/')
       .send({ country: newDefaultCountry })
       .set('Authorization', `Bearer ${accessToken}`);
 

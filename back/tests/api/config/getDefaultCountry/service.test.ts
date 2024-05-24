@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { faker } from '@faker-js/faker';
-import { Alpha2Code } from 'i18n-iso-countries';
+import type { Alpha2Code } from 'i18n-iso-countries';
 import { userEntityFactory } from '../../../helpers/factories/user.factory';
 import { configEntityFactory } from '../../../helpers/factories/config.factory';
 import { Alpha2CodeEnum } from '../../../../src/utils/country.util';

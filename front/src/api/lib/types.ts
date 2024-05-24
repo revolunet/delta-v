@@ -1,4 +1,4 @@
-import { Alpha2Code } from 'i18n-iso-countries';
+import type { Alpha2Code } from 'i18n-iso-countries';
 
 import { ContactDetails, MeansOfTransportAndCountry } from '@/stores/declaration/appState.store';
 import { ShoppingProduct } from '@/stores/simulator/appState.store';

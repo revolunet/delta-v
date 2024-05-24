@@ -1,4 +1,4 @@
-import { Alpha2Code } from 'i18n-iso-countries';
+import type { Alpha2Code } from 'i18n-iso-countries';
 import { UserRepositoryInterface } from '../../../repositories/user.repository';
 import userNotFoundError from '../../common/errors/userNotFound.error';
 import { ConfigRepositoryInterface } from '../../../repositories/config.repository';

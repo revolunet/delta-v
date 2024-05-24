@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { motion } from 'framer-motion';
-import { Alpha2Code } from 'i18n-iso-countries';
+import type { Alpha2Code } from 'i18n-iso-countries';
 import shallow from 'zustand/shallow';
 
 import { FormSelectCountry } from '../FormSelectCountry';

@@ -1,8 +1,8 @@
-import { Express } from 'express';
+import type { Express } from 'express';
 import request from 'supertest';
 
 import { faker } from '@faker-js/faker';
-import { Alpha2Code } from 'i18n-iso-countries';
+import type { Alpha2Code } from 'i18n-iso-countries';
 import { testDbManager } from '../../../helpers/testDb.helper';
 import buildTestApp from '../../../helpers/testApp.helper';
 import { HttpStatuses } from '../../../../src/core/httpStatuses';

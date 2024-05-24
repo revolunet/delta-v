@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Alpha2Code } from 'i18n-iso-countries';
+import type { Alpha2Code } from 'i18n-iso-countries';
 import { useRouter } from 'next/router';
 
 import { useGetDefaultCountry } from '@/api/hooks/useAPIConfig';
@@ -49,11 +49,7 @@ export const NomenclaturePageMobile = () => {
 
   const countriesData = memoizedCountriesData({ countriesAlternatives, disabledCountries });
 
-  const [currentCountryLabel, setCurrentCountryLabel] = useState(
-    countryForProductsNomenclature
-      ? countriesData.find((country) => country.value === countryForProductsNomenclature)?.label
-      : undefined,
-  );
+  const [currentCountryLabel, setCurrentCountryLabel] = useState<string | undefined>(undefined);
   const [openSelectCountryModal, setOpenSelectCountryModal] = useState(
     !countryForProductsNomenclature,
   );

@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 
 import { getEmojiFlag } from 'countries-list';
-import { Alpha2Code, getNames } from 'i18n-iso-countries';
+import type { Alpha2Code } from 'i18n-iso-countries';
+import { getNames } from 'i18n-iso-countries';
 
 import { CountryAlternative } from '@/utils/country.util';
 

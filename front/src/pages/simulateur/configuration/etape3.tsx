@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { Alpha2Code } from 'i18n-iso-countries';
+import type { Alpha2Code } from 'i18n-iso-countries';
 import { useRouter } from 'next/router';
 import { useForm, UseFormHandleSubmit } from 'react-hook-form';
 import shallow from 'zustand/shallow';

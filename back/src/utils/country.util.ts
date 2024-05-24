@@ -1,4 +1,5 @@
-import { Alpha2Code, getNames } from 'i18n-iso-countries';
+import type { Alpha2Code } from 'i18n-iso-countries';
+import { getNames } from 'i18n-iso-countries';
 import { euCountries } from '../api/common/enums/countries.enum';
 
 export enum CountryType {

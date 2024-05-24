@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
 import { motion } from 'framer-motion';
-import { Alpha2Code, getNames } from 'i18n-iso-countries';
+import { getNames } from 'i18n-iso-countries';
+import type { Alpha2Code } from 'i18n-iso-countries';
 
 import { usePutDefaultCountryMutation } from '@/api/hooks/useAPIConfig';
 import { Button } from '@/components/atoms/Button';
@@ -41,6 +42,7 @@ export const ModalSetDefaultCountry: React.FC<ModalSetDefaultCountryProps> = ({
     if (doNotShowAgain) {
       hideSetDefaultCountry();
     } else showSetDefaultCountry();
+
     if (onClose) {
       onClose();
     }

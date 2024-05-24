@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Alpha2Code } from 'i18n-iso-countries';
+import type { Alpha2Code } from 'i18n-iso-countries';
 import { useMediaQuery } from 'react-responsive';
 import shallow from 'zustand/shallow';
 
@@ -49,7 +49,9 @@ const SetDefaultCountryPage = () => {
 
   const onRemoveDefaultCountry = () => {
     usePutDefaultCountry.mutate({ country: null });
-    onCloseRemoveDefaultModal();
+    if (usePutDefaultCountry.isSuccess) {
+      onCloseRemoveDefaultModal();
+    }
   };
 
   const onOpenSelectCountryModal = () => {
@@ -68,7 +70,7 @@ const SetDefaultCountryPage = () => {
     setDefaultCountryLabel(
       countriesData.find((country) => country.value === defaultCountry)?.label,
     );
-  }, [defaultCountry]);
+  }, [defaultCountry, countriesData]);
 
   const isMobile = useMediaQuery({
     query: '(max-width: 767px)',

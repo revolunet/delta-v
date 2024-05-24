@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useMatomo } from '@datapunt/matomo-tracker-react';
-import { Alpha2Code } from 'i18n-iso-countries';
+import type { Alpha2Code } from 'i18n-iso-countries';
 import { v4 as uuidv4 } from 'uuid';
 import shallow from 'zustand/shallow';
 
@@ -103,11 +103,7 @@ export const ProductSearchTools = ({
 
   const [productsMatchingInputSearch, setProductsMatchingInputSearch] = useState<Product[]>([]);
 
-  const [currentCountryLabel, setCurrentCountryLabel] = useState(
-    countryForProductsNomenclature
-      ? countriesData.find((country) => country.value === countryForProductsNomenclature)?.label
-      : undefined,
-  );
+  const [currentCountryLabel, setCurrentCountryLabel] = useState<string | undefined>(undefined);
   const [openSelectCountryModal, setOpenSelectCountryModal] = useState(
     !countryForProductsNomenclature,
   );

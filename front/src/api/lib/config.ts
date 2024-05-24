@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Alpha2Code } from 'i18n-iso-countries';
+import type { Alpha2Code } from 'i18n-iso-countries';
 
 import { PutDefaultCountryParams } from './types';
 
