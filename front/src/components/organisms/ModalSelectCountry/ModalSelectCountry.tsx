@@ -69,6 +69,7 @@ export const ModalSelectCountry: React.FC<ModalSelectCountryProps> = ({
       onClose={onClose}
       preventClose={preventClose}
       noInitialFocus
+      verticalPosition="top-[40%]"
     >
       <motion.div className="mx-auto md:w-[268px] gap-5 flex flex-col md:h-auto md:p-0 px-4 pt-7 pb-2 h-[calc(90vh-30px)]">
         <Typography

@@ -22,6 +22,8 @@ export interface IModalProps {
   desktopSubtitleSize?: TextSize;
   scrollable?: boolean;
   noInitialFocus?: boolean;
+  bgColor?: `bg-${string}`;
+  verticalPosition?: `top-${string}` | `-top-${string}` | `bottom-${string}` | `-bottom-${string}`;
 }
 
 export const Modal: React.FC<IModalProps> = ({
@@ -39,6 +41,8 @@ export const Modal: React.FC<IModalProps> = ({
   desktopSubtitleSize,
   scrollable = false,
   noInitialFocus = false,
+  bgColor = 'bg-white',
+  verticalPosition,
 }: IModalProps) => {
   const dialogRef = useRef(null);
   return (
@@ -52,7 +56,12 @@ export const Modal: React.FC<IModalProps> = ({
         onClose={preventClose ? () => {} : onClose}
         initialFocus={noInitialFocus ? dialogRef : undefined}
       >
-        <div className="flex min-h-screen items-center justify-center px-small pt-small pb-20 text-center">
+        <div
+          className={clsxm({
+            'relative flex min-h-screen justify-center px-small pt-small pb-20 text-center': true,
+            'items-center': !verticalPosition,
+          })}
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -83,11 +92,16 @@ export const Modal: React.FC<IModalProps> = ({
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <div
-              className={clsxm({
-                'overflow-hidden relative z-50 my-largeBase inline-block w-full p-modalMobile md:p-modalDesktop rounded-lg md:rounded-[20px] bg-white text-left align-bottom shadow-xl transition-all sm:max-w-[544px] sm:align-middle':
-                  true,
-                'p-0 md:p-0': noPadding,
-              })}
+              className={clsxm(
+                {
+                  'absolute overflow-hidden z-50 my-largeBase inline-block w-full p-modalMobile md:p-modalDesktop rounded-lg md:rounded-[20px] text-left align-bottom shadow-xl transition-all sm:max-w-[544px] sm:align-middle':
+                    true,
+                  'p-0 md:p-0': noPadding,
+                  'h-fit': verticalPosition,
+                },
+                verticalPosition ?? '',
+                bgColor,
+              )}
             >
               {!preventClose && (
                 <div className="absolute top-4 right-4 flex h-7 w-7 items-center cursor-pointer">
@@ -122,7 +136,12 @@ export const Modal: React.FC<IModalProps> = ({
                 </div>
               )}
               {children && (
-                <div className={`flex ${withMargin && 'sm:mt-base md:m-0'} justify-center`}>
+                <div
+                  className={clsxm({
+                    'flex justify-center': true,
+                    'sm:mt-base md:m-0': withMargin,
+                  })}
+                >
                   {children}
                 </div>
               )}
