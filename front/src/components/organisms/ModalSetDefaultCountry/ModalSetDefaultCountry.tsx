@@ -27,7 +27,7 @@ export const ModalSetDefaultCountry: React.FC<ModalSetDefaultCountryProps> = ({
   preventClose = false,
   modalType = ModalType.DOWN,
 }) => {
-  const [doNotSowAgain, setDoNotShowAgain] = useState(false);
+  const [doNotShowAgain, setDoNotShowAgain] = useState(false);
   const { hideSetDefaultCountry, showSetDefaultCountry } = useStore((state) => ({
     hideSetDefaultCountry: state.hideSetDefaultCountry,
     showSetDefaultCountry: state.showSetDefaultCountry,
@@ -38,12 +38,12 @@ export const ModalSetDefaultCountry: React.FC<ModalSetDefaultCountryProps> = ({
   const countryLabel = countries[country];
 
   const handleClose = () => {
+    if (doNotShowAgain) {
+      hideSetDefaultCountry();
+    } else showSetDefaultCountry();
     if (onClose) {
       onClose();
     }
-    if (doNotSowAgain) {
-      hideSetDefaultCountry();
-    } else showSetDefaultCountry();
   };
 
   const ModalComponent = getModalComponent(modalType);
@@ -64,7 +64,7 @@ export const ModalSetDefaultCountry: React.FC<ModalSetDefaultCountryProps> = ({
     <ModalComponent
       bgColor="bg-white"
       open={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
       preventClose={preventClose}
       noInitialFocus
     >

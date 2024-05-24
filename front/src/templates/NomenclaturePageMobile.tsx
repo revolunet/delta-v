@@ -35,12 +35,14 @@ export const NomenclaturePageMobile = () => {
     favoriteProducts,
     setProductsNomenclatureToDisplayAgent,
     countryForProductsNomenclature,
+    displaySetDefaultCountry,
   } = useStore((state) => ({
     setFavoriteProducts: state.setFavoriteProducts,
     nomenclatureProducts: state.products.appState.nomenclatureProducts,
     favoriteProducts: state.products.appState.favoriteProducts,
     setProductsNomenclatureToDisplayAgent: state.setProductsNomenclatureToDisplayAgent,
     countryForProductsNomenclature: state.products.appState.countryForProductsNomenclature,
+    displaySetDefaultCountry: state.global.appState.displaySetDefaultCountry,
   }));
 
   const { data: defaultCountry, refetch: updateDefaultCountry } = useGetDefaultCountry();
@@ -154,7 +156,8 @@ export const NomenclaturePageMobile = () => {
     setOpenSetDefaultCountryModal(false);
   };
 
-  const shouldShowSetDefaultCountryModal = selectedCountry && selectedCountry !== defaultCountry;
+  const shouldShowSetDefaultCountryModal =
+    displaySetDefaultCountry && selectedCountry && selectedCountry !== defaultCountry;
 
   return (
     <>
