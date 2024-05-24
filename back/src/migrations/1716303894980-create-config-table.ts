@@ -13,7 +13,7 @@ export class CreateConfigTable1716303894980 implements MigrationInterface {
         `);
     await queryRunner.query(`
             ALTER TABLE "config"
-            ADD CONSTRAINT "FK_edea9a663f93bd4dd32b2877451" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
+            ADD CONSTRAINT "FK_edea9a663f93bd4dd32b2877451" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE NO ACTION
         `);
   }
 
