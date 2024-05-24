@@ -75,7 +75,7 @@ export const NomenclaturePageMobile = () => {
     setCurrentCountryLabel(
       countriesData.find((country) => country.value === countryForProductsNomenclature)?.label,
     );
-  }, [countryForProductsNomenclature]);
+  }, [countryForProductsNomenclature, defaultCountry]);
 
   const updateSearchProductHistory = usePutSearchProductHistoryMutation({});
 

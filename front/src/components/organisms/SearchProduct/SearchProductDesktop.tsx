@@ -146,7 +146,7 @@ export const ProductSearchTools = ({
     setCurrentCountryLabel(
       countriesData.find((country) => country.value === countryForProductsNomenclature)?.label,
     );
-  }, [countryForProductsNomenclature]);
+  }, [countryForProductsNomenclature, defaultCountry]);
 
   const onClickInputResult = (product: IdRequiredProduct, search: string) => {
     const fullProduct = findProduct(product.id);
